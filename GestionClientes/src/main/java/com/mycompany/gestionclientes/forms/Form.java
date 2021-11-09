@@ -7,6 +7,7 @@ package com.mycompany.gestionclientes.forms;
 import com.mycompany.gestionclientes.dao.ClientDao;
 import com.mycompany.gestionclientes.models.Client;
 import java.util.ArrayList;
+import java.util.List;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 
@@ -15,6 +16,9 @@ import javax.swing.JOptionPane;
  * @author Bárbara
  */
 public class Form extends javax.swing.JFrame {
+    
+    private List<Client> clientList = new ArrayList<>();
+
 
     /**
      * Creates new form Form
@@ -44,9 +48,17 @@ public class Form extends javax.swing.JFrame {
         emailLabel = new javax.swing.JLabel();
         phoneLabel = new javax.swing.JLabel();
         userPhoneTxt = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        JModify = new javax.swing.JButton();
+        idLabel = new javax.swing.JLabel();
+        infoId = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                formComponentShown(evt);
+            }
+        });
 
         nameLabel.setText("Name");
 
@@ -96,52 +108,81 @@ public class Form extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("jButton1");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        JModify.setText("Modificar");
+        JModify.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                JModifyActionPerformed(evt);
             }
         });
+
+        idLabel.setText("Id");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(44, 44, 44)
-                .addComponent(signInButton)
-                .addGap(21, 21, 21))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(JModify)
                     .addComponent(JDelete)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(82, 82, 82)
+                        .addComponent(infoId)
+                        .addGap(46, 46, 46)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(50, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(nameLabel)
-                        .addGap(18, 18, 18)
-                        .addComponent(userNameTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(surnameLabel)
-                        .addGap(18, 18, 18)
-                        .addComponent(userSurnameTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(emailLabel)
-                        .addGap(18, 18, 18)
-                        .addComponent(userEmailTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(phoneLabel)
-                        .addGap(18, 18, 18)
-                        .addComponent(userPhoneTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(56, 56, 56))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(signInButton)
+                                .addGap(21, 21, 21))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addComponent(surnameLabel)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(userSurnameTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addComponent(emailLabel)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(userEmailTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addComponent(phoneLabel)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(userPhoneTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addGap(18, 18, 18)
+                                            .addComponent(idLabel)
+                                            .addGap(109, 109, 109))
+                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                            .addComponent(nameLabel)
+                                            .addGap(18, 18, 18)
+                                            .addComponent(userNameTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGap(40, 40, 40))))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(31, 31, 31)
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(JDelete)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(JModify)
+                .addGap(43, 43, 43))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(infoId)
+                    .addComponent(jLabel1))
+                .addGap(18, 18, 18)
+                .addComponent(idLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(nameLabel)
                     .addComponent(userNameTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -158,16 +199,8 @@ public class Form extends javax.swing.JFrame {
                     .addComponent(phoneLabel)
                     .addComponent(userPhoneTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(signInButton)
-                    .addComponent(jButton1))
+                .addComponent(signInButton)
                 .addGap(27, 27, 27))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(JDelete)
-                .addGap(72, 72, 72))
         );
 
         pack();
@@ -178,12 +211,7 @@ public class Form extends javax.swing.JFrame {
     }//GEN-LAST:event_userNameTxtActionPerformed
 
     
-        //crear arreglo
-       private ArrayList<Client> usersArray = new ArrayList<Client>();
-       
-        //MANERA 2 de crear arreglo
-        //String[] = nameArray = new String[10];
-        // nameArray[0] = "María";
+
     
     private void signInButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signInButtonActionPerformed
         
@@ -193,6 +221,7 @@ public class Form extends javax.swing.JFrame {
        String userSurname = this.userSurnameTxt.getText();
        String userEmail = this.userEmailTxt.getText();
        String userPhone = this.userPhoneTxt.getText();
+    
        
        //Declaramos nuevo objeto
        Client objectClient = new Client();
@@ -202,30 +231,44 @@ public class Form extends javax.swing.JFrame {
        objectClient.setSurname(userSurname);
        objectClient.setEmail(userEmail);
        objectClient.setTel(userPhone);
-
+       
+          
+       if(!infoId.getText().equals("")){
+           objectClient.setId(infoId.getText());
+       }
+       
        
 
+       //Agregar cliente a la base de datos
+        ClientDao dao = new ClientDao();
+        dao.keepClient(objectClient);
+        
        //Mostramos alerta
         JOptionPane.showMessageDialog(rootPane, "El usuario " + objectClient.getCompleteName() + " se guardó correctamente");
-   
-        //añadir los objetos de clientes introducidos por el usuario al array.
-        usersArray.add(objectClient);
         
         //llamamos a la función para actualizar la lista
         refreshList();
         
         //llamamos a la función para borrar info de los inputs
         deleteInputs();
+        
+      
+        
+        
     }//GEN-LAST:event_signInButtonActionPerformed
 
     private void JDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JDeleteActionPerformed
-        //Seleccionamos el índice del nombre nombre que ha pulsado el usuario y lo guardamos en la variable int
+        //Seleccionamos el índice del nombre que ha pulsado el usuario en nuestro diseño y lo guardamos en la variable index
         int index = this.jList.getSelectedIndex();
         
-        //eliminamos elemento del array Original
-        usersArray.remove(index);
+        //Seleccionamos de la lista interna el cliente cuyo índice coincide con el seleccionado.
+        Client client = clientList.get(index);
         
-        //actualizamos interfaz
+        ClientDao dao = new ClientDao();
+        //Eliminamos cliente de la bbdd
+        dao.deleteClient(client.getId());
+        
+        //actualizamos lista
         refreshList();
         
                 JOptionPane.showMessageDialog(rootPane, "Se eliminó correctamente" );
@@ -234,16 +277,19 @@ public class Form extends javax.swing.JFrame {
 
      private void refreshList() {
         
+         ClientDao dao = new ClientDao();
+         clientList = dao.listClient();
+         
         //creamos una variable de lista (no es lo mismo que array)
         DefaultListModel data = new DefaultListModel();
         
-        //capturamos elementos del array y los guardamos en la lista que acabamos de crear
-        for (int i = 0; i < usersArray.size(); i++ ) {
-            Client objectClient = usersArray.get(i);
+        //capturamos elementos del array y los guardamos en la lista data
+        for (int i = 0; i < clientList.size(); i++ ) {
+            Client objectClient = clientList.get(i);
             data.addElement(objectClient.getCompleteName());
         }
         
-        //añadimos la lista que acabamos de crear a la la lista de la interfaz (jList);
+        //añadimos la lista que acabamos de crear a la lista de la interfaz (jList);
         this.jList.setModel(data);
     }
     /**
@@ -301,11 +347,24 @@ public class Form extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_userPhoneTxtActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
+        refreshList();
+    }//GEN-LAST:event_formComponentShown
 
-        ClientDao dao = new ClientDao();   
-        dao.connect();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void JModifyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JModifyActionPerformed
+         //Seleccionamos el índice del nombre que ha pulsado el usuario en nuestro diseño y lo guardamos en la variable index
+        int index = this.jList.getSelectedIndex();
+        
+        //Seleccionamos de la lista interna el cliente cuyo índice coincide con el seleccionado.
+        Client client = clientList.get(index);
+        
+        this.userNameTxt.setText(client.getName());
+        this.userSurnameTxt.setText(client.getSurname());
+        this.userPhoneTxt.setText(client.getTel());
+        this.userEmailTxt.setText(client.getEmail());
+        this.infoId.setText(client.getId());
+                
+    }//GEN-LAST:event_JModifyActionPerformed
 
     
     
@@ -313,8 +372,11 @@ public class Form extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton JDelete;
+    private javax.swing.JButton JModify;
     private javax.swing.JLabel emailLabel;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel idLabel;
+    private javax.swing.JLabel infoId;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JList<String> jList;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel nameLabel;
