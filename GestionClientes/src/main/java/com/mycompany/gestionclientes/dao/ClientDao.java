@@ -77,10 +77,7 @@ public class ClientDao {
         } catch (Exception ex) {
             Logger.getLogger(ClientDao.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-         //Mostramos alerta
-        JOptionPane.showMessageDialog(rootPane, "El usuario " + objectClient.getCompleteName() + " se guardó correctamente");
-        
+                
         
     }
     
@@ -116,7 +113,7 @@ public class ClientDao {
             //CONEXIÓN CON LA BBDD MYSQL
         Connection conexion = connect();  
         
-            //Insertar nuevo cliente en la bbdd
+            //Cambiar datos del cliente en la bbdd
         String sql = "UPDATE `clientes` SET `nombre` = '" + objectClient.getName() 
                 + "',`apellido` = '" + objectClient.getSurname() 
                 + "',`telefono` = '" + objectClient.getTel() 
@@ -136,6 +133,7 @@ public class ClientDao {
         
         
         }
+        
     
      public List<Client> listClient(){
 
@@ -179,6 +177,7 @@ public class ClientDao {
        } else {
          modifyClient(objectClient);
      }
-               //generated methods, choose Tools | Templates.
     }
 }
+
+
