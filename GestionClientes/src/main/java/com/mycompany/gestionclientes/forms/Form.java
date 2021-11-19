@@ -347,7 +347,7 @@ public class Form extends javax.swing.JFrame {
 
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
         refreshList();
-        this.infoId.setText("HOLA");
+        //this.infoId.setText("HOLA");
 
     }//GEN-LAST:event_formComponentShown
 
